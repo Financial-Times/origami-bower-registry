@@ -1,0 +1,46 @@
+{
+  "name": "origami-bower-registry",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Install Financial Times GitHub repositories as Bower components.",
+  "keywords": [
+    "origami"
+  ],
+  "license": "MIT",
+  "homepage": "TODO",
+  "bugs": {
+    "url": "https://github.com/Financial-Times/origami-bower-registry/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Financial-Times/origami-bower-registry.git"
+  },
+  "engines": {
+    "node": "^6",
+    "npm": "^4"
+  },
+  "main": "./lib/service.js",
+  "scripts": {
+    "start": "heroku-node-settings index.js"
+  },
+  "dependencies": {
+    "@financial-times/health-check": "^1.1.0",
+    "@financial-times/origami-service": "^2.0.0",
+    "dotenv": "^2",
+    "heroku-node-settings": "^1.0.2",
+    "http-errors": "^1",
+    "require-all": "^2",
+    "throng": "^4.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^2",
+    "mocha": "^2",
+    "mockery": "^1",
+    "nodemon": "^1",
+    "nyc": "^10.3.2",
+    "proclaim": "^3",
+    "sinon": "^1",
+    "sinon-as-promised": "^4",
+    "supertest": "^1"
+  }
+}

@@ -1,0 +1,83 @@
+{
+	"schemaVersion": 1,
+	"name": "origami-bower-registry",
+	"systemCode": "origami-bower-registry",
+	"purpose": "Install Financial Times GitHub repositories as Bower components.",
+	"audience": "public",
+	"primaryUrl": "TODO",
+	"serviceTier": "platinum",
+	"dateCreated": "2017-05-24",
+	"contacts": [
+		{
+			"name": "Origami team",
+			"email": "origami.support@ft.com",
+			"rel": "owner",
+			"domain": "All support enquiries"
+		}
+	],
+	"links": [
+		{
+			"url": "https://github.com/Financial-Times/origami-bower-registry/issues",
+			"category": "issues"
+		},
+		{
+			"url": "https://github.com/Financial-Times/origami-bower-registry",
+			"category": "repo"
+		},
+		{
+			"url": "https://dashboard.heroku.com/apps/TODO",
+			"category": "deployment",
+			"description": "Heroku dashboard (Production EU)"
+		},
+		{
+			"url": "https://dashboard.heroku.com/apps/TODO",
+			"category": "deployment",
+			"description": "Heroku dashboard (Production US)"
+		},
+		{
+			"url": "https://dashboard.heroku.com/apps/TODO",
+			"category": "deployment",
+			"description": "Heroku dashboard (QA)"
+		},
+		{
+			"url": "https://dashboard.heroku.com/pipelines/TODO",
+			"category": "deployment",
+			"description": "Heroku dashboard (QA > Production pipeline)"
+		},
+		{
+			"url": "http://grafana.ft.com/dashboard/db/TODO",
+			"category": "monitoring",
+			"description": "Grafana dashboard"
+		},
+		{
+			"url": "https://my.pingdom.com/newchecks/checks#check=TODO",
+			"category": "monitoring",
+			"description": "Pingdom check (Production EU)"
+		},
+		{
+			"url": "https://my.pingdom.com/newchecks/checks#check=TODO",
+			"category": "monitoring",
+			"description": "Pingdom check (Production US)"
+		},
+		{
+			"url": "https://github.com/Financial-Times/origami-bower-registry#readme",
+			"category": "documentation",
+			"description": "README"
+		},
+		{
+			"url": "https://sentry.io/nextftcom/TODO/",
+			"category": "monitoring",
+			"description": "Sentry dashboard (Production)"
+		},
+		{
+			"url": "https://sentry.io/nextftcom/TODO/",
+			"category": "monitoring",
+			"description": "Sentry dashboard (QA)"
+		},
+		{
+			"url": "https://financialtimes.splunkcloud.com/en-US/app/search/search?q=TODO",
+			"category": "monitoring",
+			"description": "Splunk (Production)"
+		}
+	]
+}
