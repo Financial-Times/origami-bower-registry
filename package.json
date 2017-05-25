@@ -29,6 +29,8 @@
     "dotenv": "^2",
     "heroku-node-settings": "^1.0.2",
     "http-errors": "^1",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.4",
     "require-all": "^2",
     "throng": "^4.0.0"
   },
