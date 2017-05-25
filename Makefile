@@ -37,7 +37,28 @@ test-integration:
 # Deploy tasks
 # ------------
 
-# TODO copy from navigation service
+deploy:
+	@git push https://git.heroku.com/origami-bower-registry-qa.git
+	@make change-request-qa
+	@$(DONE)
+
+promote:
+ifndef CR_API_KEY
+	$(error CR_API_KEY is not set, change requests cannot be created. You can find the key in LastPass)
+endif
+	@make update-cmdb
+	@heroku pipelines:promote --app origami-bower-registry-qa
+	@make change-request-prod
+	@$(DONE)
+
+update-cmdb:
+ifndef CMDB_API_KEY
+	$(error CMDB_API_KEY is not set, cannot send updates to CMDB. You can find the key in LastPass)
+endif
+	@curl --silent --show-error -H 'Content-Type: application/json' -H 'apikey: ${CMDB_API_KEY}' -X PUT https://cmdb.ft.com/v2/items/endpoint/origami-bower-registry-eu.herokuapp.com -d @operational-documentation/health-and-about-endpoints-eu.json -f > /dev/null
+	@curl --silent --show-error -H 'Content-Type: application/json' -H 'apikey: ${CMDB_API_KEY}' -X PUT https://cmdb.ft.com/v2/items/endpoint/origami-bower-registry-us.herokuapp.com -d @operational-documentation/health-and-about-endpoints-us.json -f > /dev/null
+	@curl --silent --show-error -H 'Content-Type: application/json' -H 'apikey: ${CMDB_API_KEY}' -X PUT https://cmdb.ft.com/v2/items/system/origami-bower-registry -d @operational-documentation/runbook.json -f > /dev/null
+
 
 
 # Monitoring tasks
@@ -49,7 +70,41 @@ test-integration:
 # Change Request tasks
 # --------------------
 
-# TODO copy from navigation service
+CR_EMAIL=rowan.manning@ft.com
+CR_APPNAME=Origami Bower Registry
+CR_DESCRIPTION=Release triggered by CI
+CR_SERVICE_ID=Origami Bower Registry
+CR_NOTIFY_CHANNEL=origami-deploys
+
+change-request-qa:
+ifndef CR_API_KEY
+	$(error CR_API_KEY is not set, change requests cannot be created. You can find the key in LastPass)
+endif
+	@release-log \
+		--environment "Test" \
+		--api-key "$(CR_API_KEY)" \
+		--summary "Releasing $(CR_APPNAME) to QA" \
+		--description "$(CR_DESCRIPTION)" \
+		--owner-email "$(CR_EMAIL)" \
+		--service "$(CR_SERVICE_ID)" \
+		--notify-channel "$(CR_NOTIFY_CHANNEL)" \
+		|| true
+	@$(DONE)
+
+change-request-prod:
+ifndef CR_API_KEY
+	$(error CR_API_KEY is not set, change requests cannot be created. You can find the key in LastPass)
+endif
+	@release-log \
+		--environment "Production" \
+		--api-key "$(CR_API_KEY)" \
+		--summary "Releasing $(CR_APPNAME) to production" \
+		--description "$(CR_DESCRIPTION)" \
+		--owner-email "$(CR_EMAIL)" \
+		--service "$(CR_SERVICE_ID)" \
+		--notify-channel "$(CR_NOTIFY_CHANNEL)" \
+		|| true
+	@$(DONE)
 
 
 # Run tasks
