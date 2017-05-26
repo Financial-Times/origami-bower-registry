@@ -40,6 +40,7 @@ test-integration:
 deploy:
 	@git push https://git.heroku.com/origami-bower-registry-qa.git
 	@make change-request-qa
+	@make grafana-push
 	@$(DONE)
 
 promote:
@@ -64,7 +65,20 @@ endif
 # Monitoring tasks
 # ----------------
 
-# TODO copy from navigation service
+# Monitoring tasks
+# ----------------
+
+grafana-pull:
+ifndef GRAFANA_API_KEY
+	$(error GRAFANA_API_KEY is not set)
+endif
+	@grafana pull origami-bower-registry ./operational-documentation/grafana-dashboard.json
+
+grafana-push:
+ifndef GRAFANA_API_KEY
+	$(error GRAFANA_API_KEY is not set)
+endif
+	@grafana push origami-bower-registry ./operational-documentation/grafana-dashboard.json --overwrite
 
 
 # Change Request tasks

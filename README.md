@@ -68,7 +68,10 @@ The service can also be configured by sending HTTP headers, these would normally
 Operational Documentation
 -------------------------
 
-TODO copy from navigation service
+The source documentation for the [runbook](https://dewey.ft.com/origami-bower-registry.html) and [healthcheck](https://endpointmanager.in.ft.com/manage/origami-bower-registry-eu.herokuapp.com) [endpoints](https://endpointmanager.in.ft.com/manage/origami-bower-registry-us.herokuapp.com) are stored in the `operational-documentation` folder. These files are pushed to CMDB upon every promotion to production. You can push them to CMDB manually by running the following command:
+```sh
+make update-cmdb
+```
 
 
 Testing
@@ -155,7 +158,7 @@ The Financial Times has published this software under the [MIT license][license]
 
 
 [ci]: https://circleci.com/gh/Financial-Times/origami-bower-registry
-[grafana]: http://grafana.ft.com/dashboard/db/TODO
+[grafana]: http://grafana.ft.com/dashboard/db/origami-bower-registry
 [heroku-pipeline]: https://dashboard.heroku.com/pipelines/748923ac-b3c0-4289-a0ac-c26b5a7dbe3a
 [heroku-production-eu]: https://dashboard.heroku.com/apps/origami-bower-registry-eu
 [heroku-production-us]: https://dashboard.heroku.com/apps/origami-bower-registry-us
