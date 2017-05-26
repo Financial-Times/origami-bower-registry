@@ -4,7 +4,7 @@
 	"systemCode": "origami-bower-registry",
 	"purpose": "Install Financial Times GitHub repositories as Bower components.",
 	"audience": "public",
-	"primaryUrl": "TODO",
+	"primaryUrl": "https://origami-bower-registry.ft.com/",
 	"serviceTier": "platinum",
 	"dateCreated": "2017-05-24",
 	"contacts": [
@@ -25,22 +25,22 @@
 			"category": "repo"
 		},
 		{
-			"url": "https://dashboard.heroku.com/apps/TODO",
+			"url": "https://dashboard.heroku.com/apps/origami-bower-registry-eu",
 			"category": "deployment",
 			"description": "Heroku dashboard (Production EU)"
 		},
 		{
-			"url": "https://dashboard.heroku.com/apps/TODO",
+			"url": "https://dashboard.heroku.com/apps/origami-bower-registry-us",
 			"category": "deployment",
 			"description": "Heroku dashboard (Production US)"
 		},
 		{
-			"url": "https://dashboard.heroku.com/apps/TODO",
+			"url": "https://dashboard.heroku.com/apps/origami-bower-registry-qa",
 			"category": "deployment",
 			"description": "Heroku dashboard (QA)"
 		},
 		{
-			"url": "https://dashboard.heroku.com/pipelines/TODO",
+			"url": "https://dashboard.heroku.com/pipelines/748923ac-b3c0-4289-a0ac-c26b5a7dbe3a",
 			"category": "deployment",
 			"description": "Heroku dashboard (QA > Production pipeline)"
 		},
@@ -50,12 +50,12 @@
 			"description": "Grafana dashboard"
 		},
 		{
-			"url": "https://my.pingdom.com/newchecks/checks#check=TODO",
+			"url": "https://my.pingdom.com/newchecks/checks#check=2952910",
 			"category": "monitoring",
 			"description": "Pingdom check (Production EU)"
 		},
 		{
-			"url": "https://my.pingdom.com/newchecks/checks#check=TODO",
+			"url": "https://my.pingdom.com/newchecks/checks#check=2952919",
 			"category": "monitoring",
 			"description": "Pingdom check (Production US)"
 		},
@@ -65,17 +65,17 @@
 			"description": "README"
 		},
 		{
-			"url": "https://sentry.io/nextftcom/TODO/",
+			"url": "https://sentry.io/nextftcom/origami-bower-registry-product/",
 			"category": "monitoring",
 			"description": "Sentry dashboard (Production)"
 		},
 		{
-			"url": "https://sentry.io/nextftcom/TODO/",
+			"url": "https://sentry.io/nextftcom/origami-bower-registry-qa/",
 			"category": "monitoring",
 			"description": "Sentry dashboard (QA)"
 		},
 		{
-			"url": "https://financialtimes.splunkcloud.com/en-US/app/search/search?q=TODO",
+			"url": "https://financialtimes.splunkcloud.com/en-US/app/search/search?q=app%3Dorigami-bower-registry-*",
 			"category": "monitoring",
 			"description": "Splunk (Production)"
 		}
