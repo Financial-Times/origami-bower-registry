@@ -1,47 +1,29 @@
 {
-	"name": "origami-bower-registry",
+	"name": "Origami Bower Registry",
 	"description": "Install Financial Times GitHub repositories as Bower components",
 	"serviceTier": "Bronze",
-	"lifecycleStage": "Requirements",
+	"lifecycleStage": "Analysis",
 	"primaryURL": "https://origami-bower-registry.ft.com",
-	"moreInformation": "https://github.com/Financial-Times/origami-bower-registry",
-	"troubleshooting": "",
-	"monitoring": "",
+	"gitRepository": "https://github.com/Financial-Times/origami-bower-registry",
+	"hostPlatform": "Heroku",
 	"primaryContact": {
 		"contact": [{
-			"dataItemID": "technicaloperations",
-			"name": "Technical Operations",
-			"contactType": "Team",
-			"slack": "techops",
-			"email": "technical.operations@ft.com",
-			"phone": "3001"
+			"dataItemID": "alicebartlett"
 		}]
 	},
-	"secondaryContact": {
+	"programme": {
 		"contact": [{
-			"dataItemID": "origamisupport",
-			"name": "Origami team",
-			"contactType": "Team",
-			"slack": "ft-origami",
-			"email": "origami.support@ft.com"
+			"dataItemID": "internalproducts"
 		}]
 	},
 	"productOwner": {
 		"contact": [{
-			"dataItemID": "alicebartlett",
-			"name": "Alice Bartlett",
-			"contactType": "Person",
-			"slack": "ft-origami",
-			"email": "origami.support@ft.com"
+			"dataItemID": "alicebartlett"
 		}]
 	},
 	"technicalLead": {
 		"contact": [{
-			"dataItemID": "alicebartlett",
-			"name": "Alice Bartlett",
-			"contactType": "Person",
-			"slack": "ft-origami",
-			"email": "origami.support@ft.com"
+			"dataItemID": "alicebartlett"
 		}]
 	}
 }
