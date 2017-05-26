@@ -1,5 +1,6 @@
 'use strict';
 
+const createMockPackageStore = require('./mock/package-store');
 const service = require('../..');
 const supertest = require('supertest');
 
@@ -13,10 +14,17 @@ const mockLog = {
 before(function() {
 	return Promise.resolve()
 		.then(() => {
+			return createMockPackageStore();
+		})
+		.then(mockPackageStore => {
+			this.mockPackageStore = mockPackageStore;
+		})
+		.then(() => {
 			return service({
 				environment: 'test',
 				log: mockLog,
 				port: null,
+				packageDataStore: this.mockPackageStore.address,
 				requestLogFormat: null
 			}).listen();
 		})

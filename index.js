@@ -11,6 +11,7 @@ const options = {
 	defaultLayout: 'main',
 	log: console,
 	name: 'Origami Bower Registry',
+	packageDataStore: process.env.PACKAGE_DATA_STORE || 'https://www.ft.com/__origami/service/bower-registry-data',
 	workers: process.env.WEB_CONCURRENCY || 1
 };
 

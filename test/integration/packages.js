@@ -16,7 +16,14 @@ describe('GET /packages', function() {
 			assert.isString(response.text);
 			const json = JSON.parse(response.text);
 			assert.deepEqual(json, [
-				// TODO this should be real
+				{
+					name: 'mock-package-1',
+					url: 'https://github.com/Financial-Times/mock-package-1.git'
+				},
+				{
+					name: 'mock-package-2',
+					url: 'https://github.com/Financial-Times/mock-package-2.git'
+				}
 			]);
 		}).end(done);
 	});

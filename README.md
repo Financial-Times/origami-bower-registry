@@ -56,6 +56,7 @@ We configure Origami Bower Registry using environment variables. In development,
   * `GRAPHITE_API_KEY`: The FT's internal Graphite API key.
   * `PORT`: The port to run the application on.
   * `NODE_ENV`: The environment to run the application in. One of `production`, `development` (default), or `test` (for use in automated tests).
+  * `PACKAGE_DATA_STORE`: The location of the JSON packages data that powers the service. This should be a URL.
   * `REGION`: The region the application is running in.
   * `SENTRY_DSN`: The Sentry URL to send error information to.
 
