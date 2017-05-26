@@ -5,12 +5,16 @@ const mockery = require('mockery');
 const sinon = require('sinon');
 
 describe('lib/package-data', () => {
+	let githubPublicOrganisationRepositories;
 	let log;
 	let PackageData;
 	let request;
 
 	beforeEach(() => {
 		log = require('../mock/log.mock');
+
+		githubPublicOrganisationRepositories = require('../mock/github-public-organisation-repositories.mock');
+		mockery.registerMock('github-public-organisation-repositories', githubPublicOrganisationRepositories);
 
 		request = require('../mock/request-promise-native.mock');
 		mockery.registerMock('request-promise-native', request);
@@ -28,6 +32,7 @@ describe('lib/package-data', () => {
 
 		beforeEach(() => {
 			options = {
+				githubToken: 'abcdef',
 				log: log,
 				packageDataStore: 'mock-package-store'
 			};
@@ -231,17 +236,102 @@ describe('lib/package-data', () => {
 		});
 
 		describe('.loadFromGitHub()', () => {
+			let mockPackages;
 			let returnedPromise;
+			let resolvedValue;
 
 			beforeEach(() => {
+				mockPackages = [
+					{
+						name: 'mock-package'
+					}
+				];
+				githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories.resolves(mockPackages);
 				returnedPromise = instance.loadFromGitHub();
+				return returnedPromise.then(value => {
+					resolvedValue = value;
+				});
 			});
 
 			it('returns a promise', () => {
 				assert.instanceOf(returnedPromise, Promise);
 			});
 
-			it('does stuff');
+			it('calls out to githubPublicOrganisationRepositories using the token passed in the options', () => {
+				assert.calledOnce(githubPublicOrganisationRepositories);
+				assert.calledWith(githubPublicOrganisationRepositories, options.githubToken);
+			});
+
+			it('makes a request for all public repos in financial-times', () => {
+				assert.calledOnce(githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories);
+				assert.calledWith(githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories, 'financial-times');
+			});
+
+			it('resolves with the packages', () => {
+				assert.strictEqual(resolvedValue, mockPackages);
+			});
+
+			it('sets the `data` property to the resolved packages', () => {
+				assert.strictEqual(instance.data, mockPackages);
+			});
+
+			describe('when the Github request errors', () => {
+
+				beforeEach(() => {
+					instance.data = null;
+					githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories.reset();
+					githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories.rejects(new Error('mock Github error'));
+					returnedPromise = instance.loadFromGitHub();
+				});
+
+				describe('.then()', () => {
+					let resolvedValue;
+
+					beforeEach(() => {
+						return returnedPromise.then(value => {
+							resolvedValue = value;
+						});
+					});
+
+					it('resolves with nothing', () => {
+						assert.isUndefined(resolvedValue);
+					});
+
+					it('does not set the `data` property', () => {
+						assert.isNull(instance.data);
+					});
+
+					it('logs the error', () => {
+						assert.called(log.error);
+						assert.calledWith(log.error, 'Packages could not be loaded from Github: mock Github error');
+					});
+
+				});
+
+			});
+
+			describe('when the Github request errors and no logger is specified', () => {
+
+				beforeEach(() => {
+					delete instance.log;
+					githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories.reset();
+					githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories.rejects(new Error('mock Github error'));
+					returnedPromise = instance.loadFromGitHub();
+				});
+
+				describe('.then()', () => {
+
+					beforeEach(() => {
+						return returnedPromise.then(() => {});
+					});
+
+					it('does not log the error', () => {
+						assert.neverCalledWith(log.error, 'Packages could not be loaded from Github: mock Github error');
+					});
+
+				});
+
+			});
 
 		});
 
@@ -338,6 +428,16 @@ describe('lib/package-data', () => {
 
 			it('throws an error', () => {
 				assert.throws(() => new PackageData(), 'The packageDataStore option must be a string');
+			});
+
+		});
+
+		describe('when `options.githubToken` is not a string', () => {
+
+			it('throws an error', () => {
+				assert.throws(() => new PackageData({
+					packageDataStore: ''
+				}), 'The githubToken option must be a string');
 			});
 
 		});

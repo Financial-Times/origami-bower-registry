@@ -23,6 +23,7 @@ before(function() {
 			return service({
 				environment: 'test',
 				log: mockLog,
+				githubToken: '',
 				port: null,
 				packageDataStore: this.mockPackageStore.address,
 				requestLogFormat: null
