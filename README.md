@@ -53,8 +53,8 @@ Configuration
 
 We configure Origami Bower Registry using environment variables. In development, configurations are set in a `.env` file. In production, these are set through Heroku config. Further documentation on the available options can be found in the [Origami Service documentation][service-options].
 
-  * `GITHUB_TOKEN`: The oauth token to use when communication with the Github API.
-  * `GITHUB_SECRET`: The secret used when communication with the Github Webhooks.
+  * `GITHUB_TOKEN`: The oauth token to use when communicating with the Github API.
+  * `GITHUB_SECRET`: The secret used when communicating with the Github Webhooks.
   * `GRAPHITE_API_KEY`: The FT's internal Graphite API key.
   * `PORT`: The port to run the application on.
   * `NODE_ENV`: The environment to run the application in. One of `production`, `development` (default), or `test` (for use in automated tests).
