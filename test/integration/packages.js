@@ -107,3 +107,17 @@ describe('GET /stats', function() {
 	});
 
 });
+
+describe('GET /refresh-packages', function() {
+
+	setupRequest('GET', '/refresh-packages');
+	itRespondsWithStatus(200);
+
+	it('responds with "OK"', function(done) {
+		this.request.expect(response => {
+			assert.isString(response.text);
+			assert.equal(response.text, 'OK');
+		}).end(done);
+	});
+
+});
