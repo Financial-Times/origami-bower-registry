@@ -9,6 +9,7 @@ dotenv.load({
 });
 const options = {
 	defaultLayout: 'main',
+	githubToken: process.env.GITHUB_TOKEN,
 	log: console,
 	name: 'Origami Bower Registry',
 	packageDataStore: process.env.PACKAGE_DATA_STORE || 'https://www.ft.com/__origami/service/bower-registry-data',
