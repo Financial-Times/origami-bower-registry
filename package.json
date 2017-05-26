@@ -36,6 +36,7 @@
     "throng": "^4.0.0"
   },
   "devDependencies": {
+    "@financial-times/grafana-tools": "^1.0.0",
     "@financial-times/release-log": "^1.1.2",
     "eslint": "^2",
     "mocha": "^2",

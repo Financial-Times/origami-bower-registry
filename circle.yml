@@ -11,4 +11,9 @@ test:
     - make verify
     - make test
 
-# TODO copy deployment from image service
+deployment:
+  staging:
+    branch: master
+    commands:
+      - make change-request-qa
+      - make grafana-push
