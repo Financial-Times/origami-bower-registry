@@ -24,6 +24,7 @@ before(function() {
 				environment: 'test',
 				log: mockLog,
 				githubToken: '',
+				githubSecret: 'secret',
 				port: null,
 				packageDataStore: this.mockPackageStore.address,
 				requestLogFormat: null

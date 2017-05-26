@@ -9,6 +9,7 @@ dotenv.load({
 });
 const options = {
 	defaultLayout: 'main',
+	githubSecret: process.env.GITHUB_SECRET,
 	githubToken: process.env.GITHUB_TOKEN,
 	log: console,
 	name: 'Origami Bower Registry',

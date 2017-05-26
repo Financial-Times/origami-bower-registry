@@ -26,6 +26,7 @@
   "dependencies": {
     "@financial-times/health-check": "^1.1.0",
     "@financial-times/origami-service": "^2.0.0",
+    "body-parser": "^1.17.2",
     "dotenv": "^2",
     "github-public-organisation-repositories": "^1.0.2",
     "heroku-node-settings": "^1.0.2",
@@ -33,7 +34,8 @@
     "request": "^2.81.0",
     "request-promise-native": "^1.0.4",
     "require-all": "^2",
-    "throng": "^4.0.0"
+    "throng": "^4.0.0",
+    "verify-github-webhook": "^1.0.1"
   },
   "devDependencies": {
     "@financial-times/grafana-tools": "^1.0.0",
