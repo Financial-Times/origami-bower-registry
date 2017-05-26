@@ -11,6 +11,7 @@ describe('lib/service', () => {
 	let healthChecks;
 	let service;
 	let origamiService;
+	let PackageData;
 	let requireAll;
 
 	beforeEach(() => {
@@ -24,6 +25,9 @@ describe('lib/service', () => {
 
 		healthChecks = require('../mock/health-checks.mock');
 		mockery.registerMock('./health-checks', healthChecks);
+
+		PackageData = require('../mock/package-data.mock');
+		mockery.registerMock('./package-data', PackageData);
 
 		requireAll = require('../mock/require-all.mock');
 		mockery.registerMock('require-all', requireAll);
@@ -43,6 +47,7 @@ describe('lib/service', () => {
 		beforeEach(() => {
 			options = {
 				environment: 'test',
+				packageDataStore: 'mock-package-store',
 				port: 1234
 			};
 			routes = {
@@ -106,6 +111,20 @@ describe('lib/service', () => {
 			assert.calledOnce(origamiService.middleware.errorHandler);
 			assert.calledWithExactly(origamiService.middleware.errorHandler);
 			assert.calledWith(origamiService.mockApp.use, origamiService.middleware.errorHandler.firstCall.returnValue);
+		});
+
+		it('creates a package data instance', () => {
+			assert.calledOnce(PackageData);
+			assert.calledWithNew(PackageData);
+			assert.calledWith(PackageData, origamiService.mockApp.origami.options);
+		});
+
+		it('sets the application `origami.packageData` property to the package data instance', () => {
+			assert.strictEqual(origamiService.mockApp.origami.packageData, PackageData.mockPackageData);
+		});
+
+		it('calls the package data instance `loadInitialData` method', () => {
+			assert.calledOnce(origamiService.mockApp.origami.packageData.loadInitialData);
 		});
 
 		it('returns the created application', () => {
