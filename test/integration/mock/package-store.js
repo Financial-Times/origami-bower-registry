@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const packageList = require('./package-list.json');
 
 module.exports = createMockPackageStore;
 
@@ -8,16 +9,7 @@ function createMockPackageStore() {
 	const mockPackageStore = express();
 
 	mockPackageStore.get('/packages.json', (request, response) => {
-		response.send([
-			{
-				name: 'mock-package-1',
-				url: 'https://github.com/Financial-Times/mock-package-1.git'
-			},
-			{
-				name: 'mock-package-2',
-				url: 'https://github.com/Financial-Times/mock-package-2.git'
-			}
-		]);
+		response.send(packageList);
 	});
 
 	return new Promise((resolve, reject) => {
