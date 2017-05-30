@@ -50,6 +50,8 @@ endif
 	@make update-cmdb
 	@heroku pipelines:promote --app origami-bower-registry-qa
 	@make change-request-prod
+	@echo "Purging all front-end endpoints, this will take 5 minutes, please don't cancel this command."
+	@sleep 300 && node ./scripts/purge.js
 	@$(DONE)
 
 update-cmdb:
