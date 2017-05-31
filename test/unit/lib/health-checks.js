@@ -7,6 +7,7 @@ const sinon = require('sinon');
 describe('lib/health-checks', () => {
 	let healthChecks;
 	let HealthCheck;
+	let InitialDataCheck;
 	let log;
 	let mockHealthCheck;
 
@@ -16,6 +17,9 @@ describe('lib/health-checks', () => {
 		};
 		HealthCheck = sinon.stub().returns(mockHealthCheck);
 		mockery.registerMock('@financial-times/health-check', HealthCheck);
+
+		InitialDataCheck = sinon.stub();
+		mockery.registerMock('./check/initial-data', InitialDataCheck);
 
 		log = require('../mock/log.mock');
 
