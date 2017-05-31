@@ -64,7 +64,7 @@ describe('lib/service', () => {
 
 		it('creates a healthChecks object', () => {
 			assert.calledOnce(healthChecks);
-			assert.calledWithExactly(healthChecks, options);
+			assert.calledWithExactly(healthChecks, options, PackageData.mockPackageData);
 		});
 
 		it('sets `options.healthCheck` to the created health check function', () => {
@@ -116,7 +116,7 @@ describe('lib/service', () => {
 		it('creates a package data instance', () => {
 			assert.calledOnce(PackageData);
 			assert.calledWithNew(PackageData);
-			assert.calledWith(PackageData, origamiService.mockApp.origami.options);
+			assert.calledWith(PackageData, options);
 		});
 
 		it('sets the application `origami.packageData` property to the package data instance', () => {
