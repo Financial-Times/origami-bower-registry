@@ -61,6 +61,8 @@ We configure Origami Bower Registry using environment variables. In development,
   * `PACKAGE_DATA_STORE`: The location of the JSON packages data that powers the service. This should be a URL.
   * `REGION`: The region the application is running in.
   * `SENTRY_DSN`: The Sentry URL to send error information to.
+  * `FASTLY_PURGE_API_KEY`: A Fastly API key which is used to purge URLs (when somebody POSTs to the `/purge` endpoint)
+  * `PURGE_API_KEY`: The API key to require when somebody POSTs to the `/purge` endpoint. This should be a non-memorable string, for example a UUID
 
 The service can also be configured by sending HTTP headers, these would normally be set in your CDN config:
 
