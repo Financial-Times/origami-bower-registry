@@ -50,8 +50,6 @@ endif
 	@make update-cmdb
 	@heroku pipelines:promote --app origami-bower-registry-qa
 	@make change-request-prod
-	@echo "Purging all front-end endpoints, this will take 5 minutes, please don't cancel this command."
-	@sleep 300 && node ./scripts/purge.js
 	@$(DONE)
 
 update-cmdb:
@@ -62,10 +60,6 @@ endif
 	@curl --silent --show-error -H 'Content-Type: application/json' -H 'apikey: ${CMDB_API_KEY}' -X PUT https://cmdb.ft.com/v2/items/endpoint/origami-bower-registry-us.herokuapp.com -d @operational-documentation/health-and-about-endpoints-us.json -f > /dev/null
 	@curl --silent --show-error -H 'Content-Type: application/json' -H 'apikey: ${CMDB_API_KEY}' -X PUT https://cmdb.ft.com/v2/items/system/origami-bower-registry -d @operational-documentation/runbook.json -f > /dev/null
 
-
-
-# Monitoring tasks
-# ----------------
 
 # Monitoring tasks
 # ----------------
