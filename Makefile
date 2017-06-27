@@ -49,7 +49,9 @@ deploy:
 	@git push https://git.heroku.com/$(HEROKU_APP_QA).git
 	@$(DONE)
 
-release: install change-request
+release:
+	@npm install
+	@make change-request
 ifneq (REGION, "QA")
 	@make update-cmdb
 	@$(DONE)
