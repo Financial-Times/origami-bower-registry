@@ -109,10 +109,10 @@ Deployment
 
 The production ([EU][heroku-production-eu]/[US][heroku-production-us]) and [QA][heroku-qa] applications run on [Heroku]. We deploy continuously to QA via [CircleCI][ci], you should never need to deploy to QA manually. We use a [Heroku pipeline][heroku-pipeline] to promote QA deployments to production.
 
-You'll need to provide an API key for change request logging. You can get this from the Origami LastPass folder in the note named `Change Request API Keys`. Now deploy the last QA image by running the following:
+You can promote either through the Heroku interface, or by running the following command locally:
 
 ```sh
-CR_API_KEY=<API-KEY> make promote
+make promote
 ```
 
 
@@ -145,12 +145,10 @@ If this doesn't help, then a temporary measure could be to add more dynos to the
 
 ### What if I need to deploy manually?
 
-If you _really_ need to deploy manually, you should only do so to QA. Production deploys should always be a promotion from QA.
-
-You'll need to provide an API key for change request logging. You can get this from the Origami LastPass folder in the note named `Change Request API Keys`. Now deploy to QA using the following:
+If you _really_ need to deploy manually, you should only do so to QA (production deploys should always be a promotion). Use the following command to deploy to QA manually:
 
 ```sh
-CR_API_KEY=<API-KEY> make deploy
+make deploy
 ```
 
 
