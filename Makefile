@@ -68,6 +68,7 @@ endif
 	@curl --silent --show-error -H 'Content-Type: application/json' -H 'X-Api-Key: ${CMDB_API_KEY}' -X PUT https://cmdb.in.ft.com/v3/items/endpoint/$(HEROKU_APP_EU).herokuapp.com -d @operational-documentation/health-and-about-endpoints-eu.json -f > /dev/null
 	@curl --silent --show-error -H 'Content-Type: application/json' -H 'X-Api-Key: ${CMDB_API_KEY}' -X PUT https://cmdb.in.ft.com/v3/items/endpoint/$(HEROKU_APP_US).herokuapp.com -d @operational-documentation/health-and-about-endpoints-us.json -f > /dev/null
 	@curl --silent --show-error -H 'Content-Type: application/json' -H 'X-Api-Key: ${CMDB_API_KEY}' -X PUT https://cmdb.in.ft.com/v3/items/system/$(SERVICE_SYSTEM_CODE) -d @operational-documentation/runbook.json -f > /dev/null
+	@$(DONE)
 
 
 # Monitoring tasks
@@ -101,7 +102,7 @@ else
 endif
 
 change-request:
-	@release-log \
+	@./node_modules/.bin/release-log \
 		--environment "$(CR_ENVIRONMENT)" \
 		--api-key "$(CR_API_KEY)" \
 		--summary "$(CR_SUMMARY)" \
