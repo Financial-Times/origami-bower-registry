@@ -50,7 +50,7 @@ deploy:
 	@$(DONE)
 
 release: change-request
-ifneq (REGION, "QA")
+ifneq ($(REGION), QA)
 	@make update-cmdb
 endif
 	@$(DONE)
@@ -91,7 +91,7 @@ endif
 CR_EMAIL = rowan.manning@ft.com
 CR_DESCRIPTION = Release triggered by CI
 CR_NOTIFY_CHANNEL = origami-deploys
-ifeq (REGION, "QA")
+ifeq ($(REGION), QA)
 	CR_ENVIRONMENT = Test
 	CR_SUMMARY = Releasing $(SERVICE_NAME) to QA
 else
