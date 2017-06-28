@@ -49,13 +49,11 @@ deploy:
 	@git push https://git.heroku.com/$(HEROKU_APP_QA).git
 	@$(DONE)
 
-release:
-	@npm install
-	@make change-request
+release: change-request
 ifneq (REGION, "QA")
 	@make update-cmdb
-	@$(DONE)
 endif
+	@$(DONE)
 
 promote:
 	@heroku pipelines:promote --app $(HEROKU_APP_QA)
@@ -102,7 +100,8 @@ else
 endif
 
 change-request:
-	@./node_modules/.bin/release-log \
+	@npm install @financial-times/release-log # required to run in Heroku release phase
+	@release-log \
 		--environment "$(CR_ENVIRONMENT)" \
 		--api-key "$(CR_API_KEY)" \
 		--summary "$(CR_SUMMARY)" \
