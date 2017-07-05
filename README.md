@@ -53,16 +53,30 @@ Configuration
 
 We configure Origami Bower Registry using environment variables. In development, configurations are set in a `.env` file. In production, these are set through Heroku config. Further documentation on the available options can be found in the [Origami Service documentation][service-options].
 
-  * `GITHUB_TOKEN`: The oauth token to use when communicating with the Github API.
+### Required everywhere
+
   * `GITHUB_SECRET`: The secret used when communicating with the Github Webhooks.
-  * `GRAPHITE_API_KEY`: The FT's internal Graphite API key.
-  * `PORT`: The port to run the application on.
+  * `GITHUB_TOKEN`: The oauth token to use when communicating with the Github API.
   * `NODE_ENV`: The environment to run the application in. One of `production`, `development` (default), or `test` (for use in automated tests).
   * `PACKAGE_DATA_STORE`: The location of the JSON packages data that powers the service. This should be a URL.
-  * `REGION`: The region the application is running in.
-  * `SENTRY_DSN`: The Sentry URL to send error information to.
+  * `PORT`: The port to run the application on.
+
+### Required in Heroku
+
+  * `CMDB_API_KEY`: The API key to use when performing CMDB operations
   * `FASTLY_PURGE_API_KEY`: A Fastly API key which is used to purge URLs (when somebody POSTs to the `/purge` endpoint)
+  * `GRAPHITE_API_KEY`: The FT's internal Graphite API key.
   * `PURGE_API_KEY`: The API key to require when somebody POSTs to the `/purge` endpoint. This should be a non-memorable string, for example a UUID
+  * `REGION`: The region the application is running in. One of `QA`, `EU`, or `US`
+  * `RELEASE_LOG_API_KEY`: The change request API key to use when creating and closing release logs
+  * `RELEASE_LOG_ENVIRONMENT`: The Salesforce environment to include in release logs. One of `Test` or `Production`
+  * `SENTRY_DSN`: The Sentry URL to send error information to.
+
+### Required locally
+
+  * `GRAFANA_API_KEY`: The API key to use when using Grafana push/pull
+
+### Headers
 
 The service can also be configured by sending HTTP headers, these would normally be set in your CDN config:
 
