@@ -88,7 +88,7 @@ Operational Documentation
 
 The source documentation for the [runbook](https://dewey.ft.com/origami-bower-registry.html) and [healthcheck](https://endpointmanager.in.ft.com/manage/origami-bower-registry-eu.herokuapp.com) [endpoints](https://endpointmanager.in.ft.com/manage/origami-bower-registry-us.herokuapp.com) are stored in the `operational-documentation` folder. These files are pushed to CMDB upon every promotion to production. You can push them to CMDB manually by running the following command:
 ```sh
-make update-cmdb
+make cmdb-update
 ```
 
 
