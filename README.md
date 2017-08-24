@@ -55,11 +55,14 @@ We configure Origami Bower Registry using environment variables. In development,
 
 ### Required everywhere
 
+  * `AWS_ACCESS_KEY`: The API key used to publish packages to S3.
+  * `AWS_SECRET_KEY`: The secret key used to publish packages to S3.
   * `GITHUB_SECRET`: The secret used when communicating with the Github Webhooks.
   * `GITHUB_TOKEN`: The oauth token to use when communicating with the Github API.
   * `NODE_ENV`: The environment to run the application in. One of `production`, `development` (default), or `test` (for use in automated tests).
   * `PACKAGE_DATA_STORE`: The location of the JSON packages data that powers the service. This should be a URL.
   * `PORT`: The port to run the application on.
+  * `S3_BUCKETS`: Comma-separated S3 bucket names to publish packages to.
 
 ### Required in Heroku
 
