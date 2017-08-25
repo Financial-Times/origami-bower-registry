@@ -21,13 +21,16 @@ before(function() {
 		})
 		.then(() => {
 			return service({
+				awsAccessKey: 'aws-access',
+				awsSecretKey: 'aws-secret',
 				environment: 'test',
 				log: mockLog,
 				githubToken: '',
 				githubSecret: 'secret',
 				port: null,
 				packageDataStore: this.mockPackageStore.address,
-				requestLogFormat: null
+				requestLogFormat: null,
+				s3Buckets: []
 			}).listen();
 		})
 		.then(app => {
