@@ -15,7 +15,7 @@ const options = {
 	githubToken: process.env.GITHUB_TOKEN,
 	log: console,
 	name: 'Origami Bower Registry',
-	packageDataStore: process.env.PACKAGE_DATA_STORE || 'https://www.ft.com/__origami/service/bower-registry-data',
+	packageDataStore: process.env.PACKAGE_DATA_STORE || 'https://origami-bower-registry-data.ft.com/',
 	s3Buckets: (process.env.S3_BUCKETS ? process.env.S3_BUCKETS.split(',') : []),
 	workers: process.env.WEB_CONCURRENCY || 1
 };
