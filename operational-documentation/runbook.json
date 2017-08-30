@@ -1,8 +1,8 @@
 {
 	"name": "Origami Bower Registry",
 	"description": "Install Financial Times GitHub repositories as Bower components",
-	"serviceTier": "Bronze",
-	"lifecycleStage": "Analysis",
+	"serviceTier": "Platinum",
+	"lifecycleStage": "Production",
 	"primaryURL": "https://origami-bower-registry.ft.com",
 	"gitRepository": "https://github.com/Financial-Times/origami-bower-registry",
 	"hostPlatform": "Heroku",
