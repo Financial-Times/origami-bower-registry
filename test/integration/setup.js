@@ -27,6 +27,9 @@ before(function() {
 				log: mockLog,
 				githubToken: '',
 				githubSecret: 'secret',
+				githubOrganisations: [
+					'financial-times'
+				],
 				port: null,
 				packageDataStore: this.mockPackageStore.address,
 				requestLogFormat: null,

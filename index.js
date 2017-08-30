@@ -13,6 +13,10 @@ const options = {
 	defaultLayout: 'main',
 	githubSecret: process.env.GITHUB_SECRET,
 	githubToken: process.env.GITHUB_TOKEN,
+	githubOrganisations: [
+		'financial-times',
+		'ftlabs'
+	],
 	log: console,
 	name: 'Origami Bower Registry',
 	packageDataStore: process.env.PACKAGE_DATA_STORE || 'https://origami-bower-registry-data.ft.com/',
