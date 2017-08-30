@@ -3,7 +3,7 @@
 	"protocol": "https",
 	"healthSuffix": "__health",
 	"aboutSuffix": "__about",
-	"isLive": false,
+	"isLive": true,
 	"isHealthcheckFor": {
 		"system": [{
 			"dataItemID": "origami-bower-registry"
