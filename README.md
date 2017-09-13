@@ -16,6 +16,7 @@ Table Of Contents
   * [Requirements](#requirements)
   * [Running Locally](#running-locally)
   * [Configuration](#configuration)
+  * [Adding Organisations](#adding-organisations)
   * [Operational Documentation](#operational-documentation)
   * [Testing](#testing)
   * [Deployment](#deployment)
@@ -84,6 +85,34 @@ We configure Origami Bower Registry using environment variables. In development,
 The service can also be configured by sending HTTP headers, these would normally be set in your CDN config:
 
   * `FT-Origami-Service-Base-Path`: The base path for the service, this gets prepended to all paths in the HTML and ensures that redirects work when the CDN rewrites URLs.
+
+
+Adding Organisations
+--------------------
+
+In order for the Origami Bower Registry to crawl a GitHub organisation, you need to complete a few steps:
+
+  1. Add the GitHub organisation name to the `githubOrganisations` array in [`index.js`](index.js)
+
+  2. Set up an [organisation webhook](https://github.com/blog/1933-introducing-organization-webhooks):
+
+      1. Navigate to `https://github.com/organizations/<YOUR-ORG>/settings/hooks`
+
+      2. Click the **Add webhook** button
+
+      3. Set the **Payload URL** to `https://origami-bower-registry.ft.com/packages/refresh`
+
+      4. Set the **Content type** to `application/x-www-form-urlencoded`
+
+      5. Set the **Secret** to a value given to you by the [Origami Team](#contact). (Ask them to give you access to the `Bower Registry GitHub Webhook Secret` LastPass note)
+
+      6. Check the **Let me select individual events** radio
+
+      7. Uncheck all of the event type checkboxes that appear, _except_ **Repository** – which will alert the Bower Registry when a repository is created, deleted, publicised, or privatised
+
+      8. Save the webhook by clicking the **Add webhook** button at the bottom of the page
+
+  3. Celebrate!
 
 
 Operational Documentation
