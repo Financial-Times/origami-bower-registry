@@ -32,6 +32,7 @@ before(function() {
 				],
 				port: null,
 				packageDataStore: this.mockPackageStore.address,
+				privateRepoWhitelist: [],
 				requestLogFormat: null,
 				s3Buckets: []
 			}).listen();
