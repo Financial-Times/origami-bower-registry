@@ -2,8 +2,6 @@
 Origami Bower Registry
 ======================
 
-**:warning: This is a work in progress :warning:**
-
 Install Financial Times GitHub repositories as Bower components. See [the production service][production-url] for API information.
 
 [![Build status](https://img.shields.io/circleci/project/Financial-Times/origami-bower-registry.svg)][ci]
