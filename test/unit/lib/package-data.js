@@ -45,6 +45,10 @@ describe('lib/package-data', () => {
 				],
 				log: log,
 				packageDataStore: 'mock-package-store',
+				privateRepoWhitelist: [
+					'mock-whitelist-1',
+					'mock-whitelist-2'
+				],
 				s3Buckets: [
 					'mock-bucket-1',
 					'mock-bucket-2'
@@ -289,8 +293,8 @@ describe('lib/package-data', () => {
 
 			it('makes a request for all public repos in each of the configured organisations', () => {
 				assert.calledTwice(githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories);
-				assert.calledWith(githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories, 'mock-org-1');
-				assert.calledWith(githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories, 'mock-org-2');
+				assert.calledWith(githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories, 'mock-org-1', options.privateRepoWhitelist);
+				assert.calledWith(githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories, 'mock-org-2', options.privateRepoWhitelist);
 			});
 
 			it('resolves with the packages concatenated together and sorted', () => {

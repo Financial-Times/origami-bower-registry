@@ -17,6 +17,9 @@ const options = {
 		'financial-times',
 		'ftlabs'
 	],
+	privateRepoWhitelist: [
+		'o-fonts-assets'
+	],
 	log: console,
 	name: 'Origami Bower Registry',
 	packageDataStore: process.env.PACKAGE_DATA_STORE || 'https://origami-bower-registry-data.ft.com/',
