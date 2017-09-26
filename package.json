@@ -30,7 +30,7 @@
     "aws-sdk": "^2.102.0",
     "body-parser": "^1.17.2",
     "dotenv": "^2",
-    "github-public-organisation-repositories": "^1.1.0",
+    "github-public-organisation-repositories": "^1.2.0",
     "heroku-node-settings": "^1.0.2",
     "http-errors": "^1",
     "request": "^2.81.0",
