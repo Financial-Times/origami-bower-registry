@@ -4,9 +4,8 @@ const dotenv = require('dotenv');
 const service = require('./lib/service');
 const throng = require('throng');
 
-dotenv.load({
-	silent: true
-});
+dotenv.load();
+
 const options = {
 	awsAccessKey: process.env.AWS_ACCESS_KEY,
 	awsSecretKey: process.env.AWS_SECRET_KEY,
