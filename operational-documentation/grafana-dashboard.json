@@ -7,7 +7,7 @@
     "editable": true,
     "gnetId": null,
     "hideControls": false,
-    "id": 151,
+    "id": 268,
     "links": [],
     "refresh": "1m",
     "rows": [
@@ -804,6 +804,6 @@
     },
     "timezone": "browser",
     "title": "Origami Bower Registry",
-    "version": 5
+    "version": 43
   }
 }

@@ -5,6 +5,7 @@ const mockery = require('mockery');
 const sinon = require('sinon');
 
 describe('lib/package-data', () => {
+	let AWS;
 	let githubPublicOrganisationRepositories;
 	let log;
 	let PackageData;
@@ -12,6 +13,9 @@ describe('lib/package-data', () => {
 
 	beforeEach(() => {
 		log = require('../mock/log.mock');
+
+		AWS = require('../mock/aws-sdk.mock');
+		mockery.registerMock('aws-sdk', AWS);
 
 		githubPublicOrganisationRepositories = require('../mock/github-public-organisation-repositories.mock');
 		mockery.registerMock('github-public-organisation-repositories', githubPublicOrganisationRepositories);
@@ -32,9 +36,23 @@ describe('lib/package-data', () => {
 
 		beforeEach(() => {
 			options = {
+				awsAccessKey: 'mock-aws-access-key',
+				awsSecretKey: 'mock-aws-secret-key',
 				githubToken: 'abcdef',
+				githubOrganisations: [
+					'mock-org-1',
+					'mock-org-2'
+				],
 				log: log,
-				packageDataStore: 'mock-package-store'
+				packageDataStore: 'mock-package-store',
+				privateRepoWhitelist: [
+					'mock-whitelist-1',
+					'mock-whitelist-2'
+				],
+				s3Buckets: [
+					'mock-bucket-1',
+					'mock-bucket-2'
+				]
 			};
 			instance = new PackageData(options);
 		});
@@ -236,17 +254,28 @@ describe('lib/package-data', () => {
 		});
 
 		describe('.loadFromGitHub()', () => {
-			let mockPackages;
+			let mockPackages1;
+			let mockPackages2;
 			let returnedPromise;
 			let resolvedValue;
 
 			beforeEach(() => {
-				mockPackages = [
+				mockPackages1 = [
 					{
 						name: 'mock-package'
 					}
 				];
-				githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories.resolves(mockPackages);
+				mockPackages2 = [
+					{
+						name: 'aaa-mock-package'
+					},
+					{
+						name: '000-mock-package'
+					}
+				];
+				githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories.withArgs('mock-org-1').resolves(mockPackages1);
+				githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories.withArgs('mock-org-2').resolves(mockPackages2);
+				sinon.stub(instance, 'publishToS3');
 				returnedPromise = instance.loadFromGitHub();
 				return returnedPromise.then(value => {
 					resolvedValue = value;
@@ -262,17 +291,43 @@ describe('lib/package-data', () => {
 				assert.calledWith(githubPublicOrganisationRepositories, options.githubToken);
 			});
 
-			it('makes a request for all public repos in financial-times', () => {
-				assert.calledOnce(githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories);
-				assert.calledWith(githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories, 'financial-times');
+			it('makes a request for all public repos in each of the configured organisations', () => {
+				assert.calledTwice(githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories);
+				assert.calledWith(githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories, 'mock-org-1', options.privateRepoWhitelist);
+				assert.calledWith(githubPublicOrganisationRepositories.mockGetPublicOrganisationRepositories, 'mock-org-2', options.privateRepoWhitelist);
 			});
 
-			it('resolves with the packages', () => {
-				assert.strictEqual(resolvedValue, mockPackages);
+			it('resolves with the packages concatenated together and sorted', () => {
+				assert.deepEqual(resolvedValue, [
+					{
+						name: '000-mock-package'
+					},
+					{
+						name: 'aaa-mock-package'
+					},
+					{
+						name: 'mock-package'
+					}
+				]);
 			});
 
 			it('sets the `data` property to the resolved packages', () => {
-				assert.strictEqual(instance.data, mockPackages);
+				assert.deepEqual(instance.data, [
+					{
+						name: '000-mock-package'
+					},
+					{
+						name: 'aaa-mock-package'
+					},
+					{
+						name: 'mock-package'
+					}
+				]);
+			});
+
+			it('publishes the loaded packages to S3', () => {
+				assert.calledOnce(instance.publishToS3);
+				assert.calledWithExactly(instance.publishToS3);
 			});
 
 			describe('when the Github request errors', () => {
@@ -329,6 +384,94 @@ describe('lib/package-data', () => {
 						assert.neverCalledWith(log.error, 'Packages could not be loaded from Github: mock Github error');
 					});
 
+				});
+
+			});
+
+		});
+
+		it('has a `publishToS3` method', () => {
+			assert.isFunction(instance.publishToS3);
+		});
+
+		describe('.publishToS3()', () => {
+			let returnedPromise;
+			let resolvedValue;
+
+			beforeEach(() => {
+				instance.data = [
+					{
+						name: 'mock-package'
+					}
+				];
+				returnedPromise = instance.publishToS3();
+				return returnedPromise.then(value => {
+					resolvedValue = value;
+				});
+			});
+
+			it('returns a promise', () => {
+				assert.instanceOf(returnedPromise, Promise);
+			});
+
+			it('creates an S3 instance', () => {
+				assert.calledOnce(AWS.S3);
+				assert.calledWithNew(AWS.S3);
+				assert.calledWith(AWS.S3, {
+					accessKeyId: options.awsAccessKey,
+					secretAccessKey: options.awsSecretKey
+				});
+			});
+
+			it('uploads the packages data to each bucket', () => {
+				assert.calledTwice(AWS.S3.mockInstance.upload);
+				assert.calledTwice(AWS.S3.mockUpload.promise);
+				assert.calledWith(AWS.S3.mockInstance.upload.firstCall, {
+					ACL: 'public-read',
+					Body: '[{"name":"mock-package"}]',
+					Bucket: 'mock-bucket-1',
+					ContentType: 'application/json',
+					Key: 'packages.json'
+				});
+				assert.calledWith(AWS.S3.mockInstance.upload.secondCall, {
+					ACL: 'public-read',
+					Body: '[{"name":"mock-package"}]',
+					Bucket: 'mock-bucket-2',
+					ContentType: 'application/json',
+					Key: 'packages.json'
+				});
+			});
+
+			it('resolves with nothing', () => {
+				assert.isUndefined(resolvedValue);
+			});
+
+			describe('when the S3 upload errors', () => {
+
+				beforeEach(() => {
+					AWS.S3.mockUpload.promise.reset();
+					AWS.S3.mockUpload.promise.rejects(new Error('mock S3 error'));
+					return instance.publishToS3();
+				});
+
+				it('logs the error', () => {
+					assert.called(log.error);
+					assert.calledWith(log.error, 'Packages could not be published to S3: mock S3 error');
+				});
+
+			});
+
+			describe('when the S3 upload errors and no logger is specified', () => {
+
+				beforeEach(() => {
+					delete instance.log;
+					AWS.S3.mockUpload.promise.reset();
+					AWS.S3.mockUpload.promise.rejects(new Error('mock S3 error'));
+					return instance.publishToS3();
+				});
+
+				it('does not log the error', () => {
+					assert.neverCalledWith(log.error, 'Packages could not be published to S3: mock S3 error');
 				});
 
 			});
@@ -438,6 +581,58 @@ describe('lib/package-data', () => {
 				assert.throws(() => new PackageData({
 					packageDataStore: ''
 				}), 'The githubToken option must be a string');
+			});
+
+		});
+
+		describe('when `options.awsAccessKey` is not a string', () => {
+
+			it('throws an error', () => {
+				assert.throws(() => new PackageData({
+					packageDataStore: '',
+					githubToken: ''
+				}), 'The awsAccessKey option must be a string');
+			});
+
+		});
+
+		describe('when `options.awsSecretKey` is not a string', () => {
+
+			it('throws an error', () => {
+				assert.throws(() => new PackageData({
+					packageDataStore: '',
+					githubToken: '',
+					awsAccessKey: ''
+				}), 'The awsSecretKey option must be a string');
+			});
+
+		});
+
+		describe('when `options.s3Buckets` is not an array', () => {
+
+			it('throws an error', () => {
+				assert.throws(() => new PackageData({
+					packageDataStore: '',
+					githubToken: '',
+					awsAccessKey: '',
+					awsSecretKey: '',
+					s3Buckets: null
+				}), 'The s3Buckets option must be an array');
+			});
+
+		});
+
+		describe('when `options.githubOrganisations` is not an array', () => {
+
+			it('throws an error', () => {
+				assert.throws(() => new PackageData({
+					packageDataStore: '',
+					githubToken: '',
+					awsAccessKey: '',
+					awsSecretKey: '',
+					s3Buckets: [],
+					githubOrganisations: null
+				}), 'The githubOrganisations option must be an array');
 			});
 
 		});

@@ -2,8 +2,6 @@
 Origami Bower Registry
 ======================
 
-**:warning: This is a work in progress :warning:**
-
 Install Financial Times GitHub repositories as Bower components. See [the production service][production-url] for API information.
 
 [![Build status](https://img.shields.io/circleci/project/Financial-Times/origami-bower-registry.svg)][ci]
@@ -16,6 +14,7 @@ Table Of Contents
   * [Requirements](#requirements)
   * [Running Locally](#running-locally)
   * [Configuration](#configuration)
+  * [Adding Organisations](#adding-organisations)
   * [Operational Documentation](#operational-documentation)
   * [Testing](#testing)
   * [Deployment](#deployment)
@@ -36,7 +35,7 @@ Running Locally
 Before we can run the application, we'll need to install dependencies:
 
 ```sh
-make install
+npm install
 ```
 
 Run the application in development mode with
@@ -53,17 +52,65 @@ Configuration
 
 We configure Origami Bower Registry using environment variables. In development, configurations are set in a `.env` file. In production, these are set through Heroku config. Further documentation on the available options can be found in the [Origami Service documentation][service-options].
 
-  * `GITHUB_TOKEN`: The oauth token to use when communication with the Github API.
-  * `GRAPHITE_API_KEY`: The FT's internal Graphite API key.
-  * `PORT`: The port to run the application on.
+### Required everywhere
+
+  * `AWS_ACCESS_KEY`: The API key used to publish packages to S3.
+  * `AWS_SECRET_KEY`: The secret key used to publish packages to S3.
+  * `GITHUB_SECRET`: The secret used when communicating with the Github Webhooks.
+  * `GITHUB_TOKEN`: The oauth token to use when communicating with the Github API.
   * `NODE_ENV`: The environment to run the application in. One of `production`, `development` (default), or `test` (for use in automated tests).
   * `PACKAGE_DATA_STORE`: The location of the JSON packages data that powers the service. This should be a URL.
-  * `REGION`: The region the application is running in.
+  * `PORT`: The port to run the application on.
+  * `S3_BUCKETS`: Comma-separated S3 bucket names to publish packages to.
+
+### Required in Heroku
+
+  * `CMDB_API_KEY`: The API key to use when performing CMDB operations
+  * `FASTLY_PURGE_API_KEY`: A Fastly API key which is used to purge URLs (when somebody POSTs to the `/purge` endpoint)
+  * `GRAPHITE_API_KEY`: The FT's internal Graphite API key.
+  * `PURGE_API_KEY`: The API key to require when somebody POSTs to the `/purge` endpoint. This should be a non-memorable string, for example a UUID
+  * `REGION`: The region the application is running in. One of `QA`, `EU`, or `US`
+  * `RELEASE_LOG_API_KEY`: The change request API key to use when creating and closing release logs
+  * `RELEASE_LOG_ENVIRONMENT`: The Salesforce environment to include in release logs. One of `Test` or `Production`
   * `SENTRY_DSN`: The Sentry URL to send error information to.
+
+### Required locally
+
+  * `GRAFANA_API_KEY`: The API key to use when using Grafana push/pull
+
+### Headers
 
 The service can also be configured by sending HTTP headers, these would normally be set in your CDN config:
 
   * `FT-Origami-Service-Base-Path`: The base path for the service, this gets prepended to all paths in the HTML and ensures that redirects work when the CDN rewrites URLs.
+
+
+Adding Organisations
+--------------------
+
+In order for the Origami Bower Registry to crawl a GitHub organisation, you need to complete a few steps:
+
+  1. Add the GitHub organisation name to the `githubOrganisations` array in [`index.js`](index.js)
+
+  2. Set up an [organisation webhook](https://github.com/blog/1933-introducing-organization-webhooks):
+
+      1. Navigate to `https://github.com/organizations/<YOUR-ORG>/settings/hooks`
+
+      2. Click the **Add webhook** button
+
+      3. Set the **Payload URL** to `https://origami-bower-registry.ft.com/packages/refresh`
+
+      4. Set the **Content type** to `application/x-www-form-urlencoded`
+
+      5. Set the **Secret** to a value given to you by the [Origami Team](#contact). (Ask them to give you access to the `Bower Registry GitHub Webhook Secret` LastPass note)
+
+      6. Check the **Let me select individual events** radio
+
+      7. Uncheck all of the event type checkboxes that appear, _except_ **Repository** – which will alert the Bower Registry when a repository is created, deleted, publicised, or privatised
+
+      8. Save the webhook by clicking the **Add webhook** button at the bottom of the page
+
+  3. Celebrate!
 
 
 Operational Documentation
@@ -71,7 +118,7 @@ Operational Documentation
 
 The source documentation for the [runbook](https://dewey.ft.com/origami-bower-registry.html) and [healthcheck](https://endpointmanager.in.ft.com/manage/origami-bower-registry-eu.herokuapp.com) [endpoints](https://endpointmanager.in.ft.com/manage/origami-bower-registry-us.herokuapp.com) are stored in the `operational-documentation` folder. These files are pushed to CMDB upon every promotion to production. You can push them to CMDB manually by running the following command:
 ```sh
-make update-cmdb
+make cmdb-update
 ```
 
 
@@ -106,10 +153,10 @@ Deployment
 
 The production ([EU][heroku-production-eu]/[US][heroku-production-us]) and [QA][heroku-qa] applications run on [Heroku]. We deploy continuously to QA via [CircleCI][ci], you should never need to deploy to QA manually. We use a [Heroku pipeline][heroku-pipeline] to promote QA deployments to production.
 
-You'll need to provide an API key for change request logging. You can get this from the Origami LastPass folder in the note named `Change Request API Keys`. Now deploy the last QA image by running the following:
+You can promote either through the Heroku interface, or by running the following command locally:
 
 ```sh
-CR_API_KEY=<API-KEY> make promote
+make promote
 ```
 
 
@@ -142,12 +189,10 @@ If this doesn't help, then a temporary measure could be to add more dynos to the
 
 ### What if I need to deploy manually?
 
-If you _really_ need to deploy manually, you should only do so to QA. Production deploys should always be a promotion from QA.
-
-You'll need to provide an API key for change request logging. You can get this from the Origami LastPass folder in the note named `Change Request API Keys`. Now deploy to QA using the following:
+If you _really_ need to deploy manually, you should only do so to QA (production deploys should always be a promotion). Use the following command to deploy to QA manually:
 
 ```sh
-CR_API_KEY=<API-KEY> make deploy
+make deploy
 ```
 
 
