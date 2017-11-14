@@ -1,7 +1,7 @@
 {
 	"checkPolicies": true,
 	"projectName": "origami-bower-registry",
-	"productName": "origami-bower-registry",
+	"productName": "origami services and node modules",
 	"devDep": false,
 	"failOnError": true
 }
