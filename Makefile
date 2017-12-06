@@ -39,7 +39,7 @@ endif
 
 # Auto-version the source code and create a GitHub release
 version:
-	if [ "$${REGION}" = "QA" ] || [ -n "$${CI}" ]; then \
+	@if [ "$${REGION}" = "QA" ] || [ -n "$${CI}" ]; then \
 		if [ -z "$${SOURCE_VERSION}" ]; then echo "Error: SOURCE_VERSION is not set" && exit 1; fi; \
 		if [ -z "$${GITHUB_RELEASE_TOKEN}" ]; then echo "Error: GITHUB_RELEASE_TOKEN is not set" && exit 1; fi; \
 		if [ -z "$${GITHUB_RELEASE_USER}" ]; then echo "Error: GITHUB_RELEASE_USER is not set" && exit 1; fi; \
