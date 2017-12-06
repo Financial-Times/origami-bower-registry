@@ -21,7 +21,8 @@
   },
   "main": "./lib/service.js",
   "scripts": {
-    "start": "heroku-node-settings index.js"
+    "start": "heroku-node-settings index.js",
+    "heroku-postbuild": "make version"
   },
   "dependencies": {
     "@financial-times/health-check": "^1.2.0",
