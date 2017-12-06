@@ -1,2 +1,2 @@
 web: make run
-release: make release version
+release: make release
