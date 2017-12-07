@@ -30,7 +30,7 @@ before(function() {
 				githubOrganisations: [
 					'financial-times'
 				],
-				port: null,
+				port: 0,
 				packageDataStore: this.mockPackageStore.address,
 				privateRepoWhitelist: [],
 				requestLogFormat: null,
