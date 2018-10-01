@@ -1,26 +1,17 @@
+<h1>Install Financial Times GitHub repositories as Bower components</h1>
 
-<div class="o-techdocs-container">
-	<div class="o-techdocs-layout">
+<p>
+	The Origami Bower Registry is a Bower-compatible JSON API which lists all public
+	repositories owned by the Financial Times as well as a
+	<a href="#private-repository-listing">white-list of private repositories</a>.
+</p>
 
-		<div class="o-techdocs-sidebar">
-			{{>navigation}}
-		</div>
+<p>
+	To use the Origami Bower registry, update your <code>~/.bowerrc</code> file to
+	the following:
+</p>
 
-		<div class="o-techdocs-main o-techdocs-content">
-			<h1>Install Financial Times GitHub repositories as Bower components</h1>
-
-			<p>
-				The Origami Bower Registry is a Bower-compatible JSON API which lists all public
-				repositories owned by the Financial Times as well as a
-				<a href="#private-repository-listing">white-list of private repositories</a>.
-			</p>
-
-			<p>
-				To use the Origami Bower registry, update your <code>~/.bowerrc</code> file to
-				the following:
-			</p>
-
-			<pre><code>{
+<pre><code class="o-syntax-highlight--json">{
 	"registry": {
 		"search": [
 			"https://origami-bower-registry.ft.com",
@@ -29,33 +20,28 @@
 	}
 }</code></pre>
 
-			<h2 id="private-repository-listing">Private Repository Listing</h2>
+<h2 id="private-repository-listing">Private Repository Listing</h2>
 
-			<p>
-				The registry can also list private repositories, but this is decided on a case-by-case
-				basis. If you'd like to add your private repo to the white-list, then you'll need to
-				consider the following first:
-			</p>
+<p>
+	The registry can also list private repositories, but this is decided on a case-by-case
+	basis. If you'd like to add your private repo to the white-list, then you'll need to
+	consider the following first:
+</p>
 
-			<ul>
-				<li>
-					Although the repository itself will remain private, the <em>name</em> of it will
-					become publicly viewable through the registry. Depending on the repo name, this
-					may present a privacy concern for you
-				</li>
-				<li>
-					Despite being listed, a Bower user may still not be able to actually install the
-					module – this will depend on their GitHub permissions. This could be confusing
-				</li>
-			</ul>
+<ul>
+	<li>
+		Although the repository itself will remain private, the <em>name</em> of it will
+		become publicly viewable through the registry. Depending on the repo name, this
+		may present a privacy concern for you
+	</li>
+	<li>
+		Despite being listed, a Bower user may still not be able to actually install the
+		module – this will depend on their GitHub permissions. This could be confusing
+	</li>
+</ul>
 
-			<p>
-				If you're OK with the above then either <a href="mailto:origami.support@ft.com">contact the Origami team</a>
-				asking to add your repository, or <a href="https://github.com/Financial-Times/origami-bower-registry/blob/519900207a480dc4b2957d70fec88dcd1715f18c/index.js#L20-L22">add it to the whitelist yourself</a>
-				and open a pull request.
-			</p>
-
-		</div>
-
-	</div>
-</div>
+<p>
+	If you're OK with the above then either <a href="mailto:origami.support@ft.com">contact the Origami team</a>
+	asking to add your repository, or <a href="https://github.com/Financial-Times/origami-bower-registry/blob/519900207a480dc4b2957d70fec88dcd1715f18c/index.js#L20-L22">add it to the whitelist yourself</a>
+	and open a pull request.
+</p>
