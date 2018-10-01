@@ -120,11 +120,11 @@ describe('lib/service', () => {
 		});
 
 		it('sets the application `origami.packageData` property to the package data instance', () => {
-			assert.strictEqual(origamiService.mockApp.origami.packageData, PackageData.mockPackageData);
+			assert.strictEqual(origamiService.mockApp.ft.packageData, PackageData.mockPackageData);
 		});
 
 		it('calls the package data instance `loadInitialData` method', () => {
-			assert.calledOnce(origamiService.mockApp.origami.packageData.loadInitialData);
+			assert.calledOnce(origamiService.mockApp.ft.packageData.loadInitialData);
 		});
 
 		it('returns the created application', () => {
