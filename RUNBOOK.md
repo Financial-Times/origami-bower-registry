@@ -43,6 +43,8 @@ origami-team
 ## Dependencies
 
 * github
+* heroku
+* ft-fastly
 
 ## Healthchecks
 
