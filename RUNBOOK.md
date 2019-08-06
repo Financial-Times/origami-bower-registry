@@ -14,10 +14,6 @@ Production
 
 https://origami-bower-registry.ft.com
 
-## Repositories
-
-* github:Financial-Times/origami-bower-registry
-
 ## Host Platform
 
 Heroku
@@ -43,10 +39,6 @@ origami-team
 * lee.moody
 * jake.champion
 * rowan.manning
-
-## Dependents
-
-* build-service
 
 ## Dependencies
 
