@@ -2,10 +2,6 @@
 
 Install Financial Times GitHub repositories as Bower components
 
-## Code
-
-origami-bower-registry
-
 ## Service Tier
 
 Platinum
