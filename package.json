@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@financial-times/grafana-tools": "^1.0.1",
-    "eslint": "^2",
+    "eslint": "^4",
     "mocha": "^2",
     "mockery": "^1",
     "nodemon": "^1.18.9",
