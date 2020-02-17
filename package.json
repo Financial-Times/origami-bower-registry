@@ -29,7 +29,7 @@
     "@financial-times/origami-service": "^4.0.0",
     "@financial-times/origami-service-makefile": "^6.4.0",
     "aws-sdk": "^2.178.0",
-    "body-parser": "^1.17.2",
+    "body-parser": "^1.19.0",
     "dotenv": "^4.0.0",
     "github-public-organisation-repositories": "^1.2.1",
     "heroku-node-settings": "^1.0.2",
