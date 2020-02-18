@@ -45,7 +45,7 @@
     "eslint": "^4",
     "mocha": "^2",
     "mockery": "^2",
-    "nodemon": "^1.18.9",
+    "nodemon": "^2.0.2",
     "nyc": "^10.3.2",
     "proclaim": "^3.6.0",
     "sinon": "^2.3.1",
