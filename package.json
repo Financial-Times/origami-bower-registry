@@ -44,7 +44,7 @@
     "@financial-times/grafana-tools": "^1.0.1",
     "eslint": "^4",
     "mocha": "^2",
-    "mockery": "^1",
+    "mockery": "^2",
     "nodemon": "^1.18.9",
     "nyc": "^10.3.2",
     "proclaim": "^3.6.0",
