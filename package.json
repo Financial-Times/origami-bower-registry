@@ -27,7 +27,7 @@
   "dependencies": {
     "@financial-times/health-check": "^1.11.0",
     "@financial-times/origami-service": "^4.1.0",
-    "@financial-times/origami-service-makefile": "^6.4.0",
+    "@financial-times/origami-service-makefile": "^7.0.0",
     "aws-sdk": "^2.621.0",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
@@ -35,14 +35,14 @@
     "heroku-node-settings": "^1.0.2",
     "http-errors": "^1",
     "request": "^2.88.2",
-    "request-promise-native": "^1.0.5",
+    "request-promise-native": "^1.0.8",
     "require-all": "^3",
     "throng": "^4.0.0",
     "verify-github-webhook": "^1.0.1"
   },
   "devDependencies": {
     "@financial-times/grafana-tools": "^1.0.1",
-    "eslint": "^4",
+    "eslint": "^6",
     "mocha": "^2",
     "mockery": "^2",
     "nodemon": "^2.0.2",
