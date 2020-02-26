@@ -43,7 +43,7 @@
   "devDependencies": {
     "@financial-times/grafana-tools": "^1.0.1",
     "eslint": "^6",
-    "mocha": "^2",
+    "mocha": "^7",
     "mockery": "^2",
     "nodemon": "^2.0.2",
     "nyc": "^15.0.0",
