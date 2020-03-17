@@ -61,13 +61,10 @@ We configure Origami Bower Registry using environment variables. In development,
 
 ### Required in Heroku
 
-  * `CMDB_API_KEY`: The API key to use when performing CMDB operations
   * `FASTLY_PURGE_API_KEY`: A Fastly API key which is used to purge URLs (when somebody POSTs to the `/purge` endpoint)
   * `GRAPHITE_API_KEY`: The FT's internal Graphite API key.
   * `PURGE_API_KEY`: The API key to require when somebody POSTs to the `/purge` endpoint. This should be a non-memorable string, for example a UUID
   * `REGION`: The region the application is running in. One of `QA`, `EU`, or `US`
-  * `CHANGE_API_KEY`: The change-log API key to use when creating and closing change-logs.
-  * `RELEASE_ENV`: The Salesforce environment to include in change-logs. One of `Test` or `Production`
   * `SENTRY_DSN`: The Sentry URL to send error information to.
 
 ### Required locally
