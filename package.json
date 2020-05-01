@@ -21,7 +21,9 @@
   },
   "main": "./lib/service.js",
   "scripts": {
-    "start": "heroku-node-settings index.js"
+    "start": "heroku-node-settings index.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@financial-times/health-check": "^1.11.3",
@@ -37,7 +39,8 @@
     "request-promise-native": "^1.0.8",
     "require-all": "^3",
     "throng": "^4.0.0",
-    "verify-github-webhook": "^1.0.1"
+    "verify-github-webhook": "^1.0.1",
+    "snyk": "^1.316.2"
   },
   "devDependencies": {
     "@financial-times/grafana-tools": "^1.0.6",
@@ -49,5 +52,6 @@
     "proclaim": "^3.6.0",
     "sinon": "^2.3.1",
     "supertest": "^4"
-  }
+  },
+  "snyk": true
 }
