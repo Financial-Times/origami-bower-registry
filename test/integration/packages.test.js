@@ -49,12 +49,12 @@ describe('GET /packages/search/:query', function () {
 			assert.isString(response.text);
 			const json = JSON.parse(response.text);
 			assert.deepEqual(json, [{
-					"name": "example-package",
-					"url": "https://github.com/Financial-Times/example-package.git"
+					'name': 'example-package',
+					'url': 'https://github.com/Financial-Times/example-package.git'
 				},
 				{
-					"name": "package-example",
-					"url": "https://github.com/Financial-Times/package-example.git"
+					'name': 'package-example',
+					'url': 'https://github.com/Financial-Times/package-example.git'
 				}
 			]);
 		}).end(done);

@@ -144,7 +144,7 @@ describe('lib/package-data', () => {
 			it('makes an HTTP request to the package data store', () => {
 				assert.calledOnce(request);
 				assert.calledWith(request, {
-					uri: `mock-package-store/packages.json`,
+					uri: 'mock-package-store/packages.json',
 					json: true
 				});
 			});
