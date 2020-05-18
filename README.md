@@ -22,7 +22,7 @@ Table Of Contents
 Requirements
 ------------
 
-Running Origami Bower Registry requires [Node.js] 6.x and [npm].
+Running Origami Bower Registry requires [Node.js] 12.x and [npm].
 
 
 Running Locally
