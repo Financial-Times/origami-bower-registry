@@ -1,5 +1,5 @@
 
-Origami Bower Registry [![Build status](https://img.shields.io/circleci/project/Financial-Times/origami-bower-registry.svg)][ci] [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](#licence)
+Origami Bower Registry [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](#licence)
 ======================
 
 Install Financial Times GitHub repositories as Bower components. See [the production service][production-url] for API information.
