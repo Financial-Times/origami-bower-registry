@@ -34,7 +34,7 @@ export INTEGRATION_TIMEOUT := 5000
 export INTEGRATION_SLOW := 4000
 
 # Run all of the test tasks and verify coverage
-test: test-unit-coverage verify-coverage test-integration
+test: test-unit test-integration
 	@$(TASK_DONE)
 
 # Run the unit tests using mocha
