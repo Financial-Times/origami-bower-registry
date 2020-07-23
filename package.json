@@ -36,7 +36,7 @@
     "heroku-node-settings": "^1.0.2",
     "http-errors": "^1",
     "request": "^2.88.2",
-    "request-promise-native": "^1.0.8",
+    "request-promise-native": "^1.0.9",
     "require-all": "^3",
     "throng": "^4.0.0",
     "verify-github-webhook": "^1.0.1",
