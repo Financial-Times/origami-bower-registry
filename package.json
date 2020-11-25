@@ -40,7 +40,7 @@
     "require-all": "^3",
     "throng": "^4.0.0",
     "verify-github-webhook": "^1.0.1",
-    "snyk": "^1.352.1"
+    "snyk": "^1.425.4"
   },
   "devDependencies": {
     "@financial-times/grafana-tools": "^2.0.1",
