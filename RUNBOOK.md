@@ -26,24 +26,6 @@ https://origami-bower-registry.ft.com
 
 Heroku
 
-## Architecture
-
-This is mostly a Node.js application but with the following external components:
-
-*   An S3 bucket which contains a cache of JSON data
-*   An [organisation-wide Webhook](https://github.com/organizations/Financial-Times/settings/hooks) on the Financial-Times GitHub
-
-### Loading Data
-
-1.  When this service starts, the first thing it does is fetches a JSON file from an S3 bucket. If this bucket isn't available then the application will ignore it – the JSON data is a cache, and is much faster to access than crawling the GitHub API
-2.  Having loaded the cached data (or not), the application makes several requests to the GitHub API to fetch every repository name in the Financial-Times GitHub organisation. It then discards the original cached JSON data
-3.  The application replaces the JSON file in the S3 bucket with a new fresh copy of the data in GitHub, so that next time the application starts it has the latest data
-
-### Ingestion
-
-1.  When a repository is created, renamed, or deleted on the Financial Times GitHub, an organisation-wide webhook makes a request to this service
-2.  The service then performs step 2 and 3 in "Loading Data" outlined above, ensuring that all of the data is fresh
-
 ## Contains Personal Data
 
 No
@@ -114,6 +96,23 @@ This is the name of the Heroku pipeline for this system. If you don't have a pip
 ...or delete this placeholder if not applicable to this system
 -->
 
+## First Line Troubleshooting
+
+There are a few things you can try before contacting the Origami team:
+
+1.  Verify that GitHub and S3 are up. Either of these being down could cause downtime for this application. See [GitHub's status page](https://www.githubstatus.com/) and the [Registry Data's `__gtg` endpoint](https://origami-bower-registry-data.ft.com/__gtg).
+2.  Restart all of the dynos across the production EU and US Heroku apps ([pipeline here](https://dashboard.heroku.com/pipelines/748923ac-b3c0-4289-a0ac-c26b5a7dbe3a))
+
+## Second Line Troubleshooting
+
+If the application is failing entirely, you'll need to check a couple of things:
+
+1.  Did a deployment just happen? If so, roll it back to bring the service back up (hopefully)
+2.  Check the Heroku metrics page for both EU and US apps, to see what CPU and memory usage is like ([pipeline here](https://dashboard.heroku.com/pipelines/748923ac-b3c0-4289-a0ac-c26b5a7dbe3a))
+3.  Check the Splunk logs (see the monitoring section of this runbook for the link)
+
+If only a few things aren't working, the Splunk logs (see monitoring) are the best place to start debugging. Always roll back a deploy if one happened just before the thing stopped working – this gives you the chance to debug in the relative calm of QA.
+
 ## Monitoring
 
 *   [Grafana dashboard][grafana]: graph memory, load, and number of requests
@@ -134,23 +133,6 @@ This is the name of the Heroku pipeline for this system. If you don't have a pip
 [sentry-qa]: https://sentry.io/nextftcom/origami-bower-registry-qa/
 
 [splunk]: https://financialtimes.splunkcloud.com/en-US/app/search/search?q=search%20index%3Dheroku%20source%3D%2Fvar%2Flog%2Fapps%2Fheroku%2Forigami-bower-registry-*
-
-## First Line Troubleshooting
-
-There are a few things you can try before contacting the Origami team:
-
-1.  Verify that GitHub and S3 are up. Either of these being down could cause downtime for this application. See [GitHub's status page](https://www.githubstatus.com/) and the [Registry Data's `__gtg` endpoint](https://origami-bower-registry-data.ft.com/__gtg).
-2.  Restart all of the dynos across the production EU and US Heroku apps ([pipeline here](https://dashboard.heroku.com/pipelines/748923ac-b3c0-4289-a0ac-c26b5a7dbe3a))
-
-## Second Line Troubleshooting
-
-If the application is failing entirely, you'll need to check a couple of things:
-
-1.  Did a deployment just happen? If so, roll it back to bring the service back up (hopefully)
-2.  Check the Heroku metrics page for both EU and US apps, to see what CPU and memory usage is like ([pipeline here](https://dashboard.heroku.com/pipelines/748923ac-b3c0-4289-a0ac-c26b5a7dbe3a))
-3.  Check the Splunk logs (see the monitoring section of this runbook for the link)
-
-If only a few things aren't working, the Splunk logs (see monitoring) are the best place to start debugging. Always roll back a deploy if one happened just before the thing stopped working – this gives you the chance to debug in the relative calm of QA.
 
 ## Failover Details
 
