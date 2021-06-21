@@ -21,7 +21,7 @@
 	},
 	"main": "./lib/service.js",
 	"scripts": {
-		"build": "npx @financial-times/sass -I node_modules main.scss public/main.css",
+		"build": "npx @financial-times/sass -I node_modules frontend/main.scss public/main.css; npx esbuild frontend/main.js --bundle --minify --sourcemap --outdir=public",
 		"start": "heroku-node-settings index.js",
 		"snyk-protect": "snyk protect",
 		"prepare": "npm run snyk-protect"
@@ -52,6 +52,7 @@
 	"devDependencies": {
 		"@financial-times/grafana-tools": "^2.0.1",
 		"@financial-times/sass": "^1.32.4",
+		"esbuild": "^0.12.9",
 		"eslint": "^7",
 		"mocha": "^8",
 		"mockery": "^2",
