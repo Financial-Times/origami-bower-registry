@@ -1,57 +1,69 @@
 {
-  "name": "origami-bower-registry",
-  "version": "0.0.0",
-  "private": true,
-  "description": "Install Financial Times GitHub repositories as Bower components.",
-  "keywords": [
-    "origami"
-  ],
-  "license": "MIT",
-  "homepage": "https://origami-bower-registry.ft.com/",
-  "bugs": {
-    "url": "https://github.com/Financial-Times/origami-bower-registry/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Financial-Times/origami-bower-registry.git"
-  },
-  "engines": {
-    "node": "^12.0.0",
-    "npm": "^6"
-  },
-  "main": "./lib/service.js",
-  "scripts": {
-    "start": "heroku-node-settings index.js",
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
-  },
-  "dependencies": {
-    "@financial-times/health-check": "^2.1.6",
-    "@financial-times/origami-service": "^5.0.0",
-    "@financial-times/origami-service-makefile": "^7.0.3",
-    "aws-sdk": "^2.814.0",
-    "body-parser": "^1.19.0",
-    "dotenv": "^8.2.0",
-    "github-public-organisation-repositories": "^1.3.2",
-    "heroku-node-settings": "^1.0.2",
-    "http-errors": "^1",
-    "request": "^2.88.2",
-    "request-promise-native": "^1.0.9",
-    "require-all": "^3",
-    "throng": "^4.0.0",
-    "verify-github-webhook": "^1.0.1",
-    "snyk": "^1.518.0"
-  },
-  "devDependencies": {
-    "@financial-times/grafana-tools": "^2.0.1",
-    "eslint": "^7",
-    "mocha": "^8",
-    "mockery": "^2",
-    "nodemon": "^2.0.7",
-    "nyc": "^15.1.0",
-    "proclaim": "^3.6.0",
-    "sinon": "^2.3.1",
-    "supertest": "^6"
-  },
-  "snyk": true
+	"name": "origami-bower-registry",
+	"version": "0.0.0",
+	"private": true,
+	"description": "Install Financial Times GitHub repositories as Bower components.",
+	"keywords": [
+		"origami"
+	],
+	"license": "MIT",
+	"homepage": "https://origami-bower-registry.ft.com/",
+	"bugs": {
+		"url": "https://github.com/Financial-Times/origami-bower-registry/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Financial-Times/origami-bower-registry.git"
+	},
+	"engines": {
+		"node": "^14.0.0",
+		"npm": "^7"
+	},
+	"main": "./lib/service.js",
+	"scripts": {
+		"build": "npx @financial-times/sass -I node_modules main.scss public/main.css",
+		"start": "heroku-node-settings index.js",
+		"snyk-protect": "snyk protect",
+		"prepare": "npm run snyk-protect"
+	},
+	"dependencies": {
+		"@financial-times/health-check": "^2.1.6",
+		"@financial-times/o-fonts": "^5.0.0",
+		"@financial-times/o-footer-services": "^4.0.1",
+		"@financial-times/o-header-services": "^5.0.0",
+		"@financial-times/o-layout": "^5.0.0",
+		"@financial-times/o-syntax-highlight": "^4.0.0",
+		"@financial-times/origami-service": "^5.0.0",
+		"@financial-times/origami-service-makefile": "^7.0.3",
+		"aws-sdk": "^2.814.0",
+		"body-parser": "^1.19.0",
+		"dotenv": "^8.2.0",
+		"github-public-organisation-repositories": "^1.3.2",
+		"heroku-node-settings": "^1.0.2",
+		"http-errors": "^1",
+		"request": "^2.88.2",
+		"request-promise-native": "^1.0.9",
+		"require-all": "^3",
+		"sass": "^1.35.1",
+		"snyk": "^1.518.0",
+		"throng": "^4.0.0",
+		"verify-github-webhook": "^1.0.1"
+	},
+	"devDependencies": {
+		"@financial-times/grafana-tools": "^2.0.1",
+		"@financial-times/sass": "^1.32.4",
+		"eslint": "^7",
+		"mocha": "^8",
+		"mockery": "^2",
+		"nodemon": "^2.0.7",
+		"nyc": "^15.1.0",
+		"proclaim": "^3.6.0",
+		"sinon": "^2.3.1",
+		"supertest": "^6"
+	},
+	"snyk": true,
+	"volta": {
+		"node": "14.17.1",
+		"npm": "7.18.1"
+	}
 }
