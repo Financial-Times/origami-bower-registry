@@ -144,7 +144,7 @@ The data stored in S3 is only used as a cache, recovery is not necessary as it's
 
 ## Release Details
 
-The application is deployed to QA whenever a new commit is pushed to the `master` branch of this repo on GitHub. To release to production, the QA application must be [manually promoted through the Heroku interface](https://dashboard.heroku.com/pipelines/748923ac-b3c0-4289-a0ac-c26b5a7dbe3a).
+The application is deployed to QA whenever a new commit is pushed to the `main` branch of this repo on GitHub. To release to production, the QA application must be [manually promoted through the Heroku interface](https://dashboard.heroku.com/pipelines/748923ac-b3c0-4289-a0ac-c26b5a7dbe3a).
 
 ## Key Management Details
 
