@@ -16,7 +16,7 @@ Platinum
 
 ## Lifecycle Stage
 
-Deprecated
+Decommissioned
 
 ## Primary URL
 
