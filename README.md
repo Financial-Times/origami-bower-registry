@@ -2,7 +2,7 @@
 Origami Bower Registry [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](#licence)
 ======================
 
-*Decommissioned, [Origami components are now published to the npm registry](https://origami.ft.com/blog/2021/07/01/origami-on-npm-and-how-to-migrate/):* Install Financial Times GitHub repositories as Bower components. See [the production service][production-url] for API information.
+**Decommissioned, [Origami components are now published to the npm registry](https://origami.ft.com/blog/2021/07/01/origami-on-npm-and-how-to-migrate/):** Install Financial Times GitHub repositories as Bower components. See [the production service][production-url] for API information.
 
 Table Of Contents
 -----------------
